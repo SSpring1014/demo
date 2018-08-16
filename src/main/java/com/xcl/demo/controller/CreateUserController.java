@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class CreateUserController {
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/getUserInfo", method = {RequestMethod.POST, RequestMethod.GET})
@@ -34,6 +36,7 @@ public class CreateUserController {
             User user = userService.findUser(id);
             result.setStatus(ResultEnum.SUCCESS.getCode());
             result.setStatusMessage(ResultEnum.SUCCESS.getName());
+            result.setData(user);
             return result;
         } catch (Exception e) {
             log.error("用戶id :" + id + "查詢出錯！");
