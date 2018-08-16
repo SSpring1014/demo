@@ -1,9 +1,16 @@
 package com.xcl.demo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author mzf
+ */
+@RestController
+@Slf4j
 @SpringBootApplication
 public class DemoApplication {
 
@@ -13,7 +20,7 @@ public class DemoApplication {
 
 	@RequestMapping("/health")
 	public String health() {
-		System.out.println("健康检查---ok");
+		log.info("健康检查---ok");
 		return "ok";
 	}
 }

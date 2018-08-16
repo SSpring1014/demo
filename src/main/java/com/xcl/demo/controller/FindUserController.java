@@ -34,7 +34,7 @@ public class FindUserController {
         Result result = new Result();
         try {
             if (null == id) {
-                log.error("用戶id :{}为空！", id);
+                log.error("用戶id为空！");
                 result.setStatus(ResultEnum.FAIL.getCode());
                 result.setStatusMessage(ResultEnum.FAIL.getName());
                 return result;
