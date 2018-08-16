@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-public class CreateUserController {
+public class FindUserController {
     @Autowired
     private UserService userService;
 
@@ -33,13 +33,25 @@ public class CreateUserController {
     public Result getUserInfo(Long id) {
         Result result = new Result();
         try {
+            if (null == id) {
+                log.error("用戶id :{}为空！", id);
+                result.setStatus(ResultEnum.FAIL.getCode());
+                result.setStatusMessage(ResultEnum.FAIL.getName());
+                return result;
+            }
             User user = userService.findUser(id);
+            if (null == user) {
+                log.error("用戶id :{}未存在！", id);
+                result.setStatus(ResultEnum.FAIL.getCode());
+                result.setStatusMessage(ResultEnum.FAIL.getName());
+                return result;
+            }
             result.setStatus(ResultEnum.SUCCESS.getCode());
             result.setStatusMessage(ResultEnum.SUCCESS.getName());
             result.setData(user);
             return result;
         } catch (Exception e) {
-            log.error("用戶id :" + id + "查詢出錯！");
+            log.error("用戶id :{}查詢出錯！", id);
             e.printStackTrace();
             result.setStatus(ResultEnum.FAIL.getCode());
             result.setStatusMessage(ResultEnum.FAIL.getName());
